@@ -29,14 +29,9 @@ class AppTheme {
     ),
 
     appBarTheme: const AppBarTheme(
-      backgroundColor: Colors.blue,
-      elevation: 10,
-      shadowColor: Colors.yellow,
-      titleTextStyle: TextStyle(
-        fontSize: 20,
-        fontWeight: FontWeight.bold,
-        color: Colors.black87,
-      ),
+      // backgroundColor: Colors.blue,
+      // elevation: 10,
+      // shadowColor: Colors.yellow,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
           bottomLeft: Radius.circular(20),

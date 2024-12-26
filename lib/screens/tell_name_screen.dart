@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:task_manager/models/user_preferences_model.dart';
+import 'package:task_manager/services/hive_services.dart';
+import 'package:task_manager/screens/home_screen.dart';
 
 class TellNameScreen extends StatelessWidget {
   TellNameScreen({super.key});
@@ -50,7 +52,7 @@ class TellNameScreen extends StatelessWidget {
                         borderSide:
                             const BorderSide(color: Colors.black87, width: 2),
                         borderRadius: BorderRadius.circular(50)),
-                    prefixIcon: Icon(
+                    prefixIcon: const Icon(
                       FontAwesomeIcons.faceSmile,
                       color: Colors.grey,
                     ),
@@ -59,23 +61,60 @@ class TellNameScreen extends StatelessWidget {
                             const BorderSide(color: Colors.blue, width: 2),
                         borderRadius: BorderRadius.circular(50))),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 200,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(100),
-                    child: ElevatedButton(
-                      onPressed: () {
-                        var name = nameController.text;
-                        print("Button was clicked, the name is $name");
-                      },
+                  // TODO: Fix the ui
+                  ElevatedButton(
+                    onPressed: () {
+                      // Saving the name to Hive
+                      var name = nameController.text;
+                      if (name != "") {
+                        UserPreferences userprefs = UserPreferences(username: name);
+                        HiveService.saveName(name);
+                        print("Your name is ${HiveService.getName()}");
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => TodoHomeScreen()));
+                      } else {
+                        const snackbar = SnackBar(
+                          content: Padding(
+                            padding: EdgeInsets.all(12.0),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  "Oh Snappp!!!",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 18,
+                                      color: Colors.black87),
+                                ),
+                                Text("The name was left Empty.",
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: 20,
+                                        color: Colors.black87)),
+                              ],
+                            ),
+                          ),
+                          duration: Duration(seconds: 2),
+                          elevation: 5,
+                          backgroundColor: Colors.teal,
+                          showCloseIcon: true,
+                        );
+                        ScaffoldMessenger.of(context).showSnackBar(snackbar);
+                      }
+                    },
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(100),
                       child: Container(
                           padding: const EdgeInsets.all(20),
-                          decoration: BoxDecoration(color: Colors.black54),
-                          child: Icon(
+                          decoration:
+                              const BoxDecoration(color: Colors.black54),
+                          child: const Icon(
                             FontAwesomeIcons.arrowRight,
                             color: Colors.white,
                             size: 30,
