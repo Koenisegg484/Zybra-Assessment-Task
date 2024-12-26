@@ -2,7 +2,9 @@ import 'dart:ffi';
 
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:task_manager/screens/create_task_screen.dart';
 import 'package:task_manager/services/hive_services.dart';
+import 'package:task_manager/widgets/no_tasks_yet.dart';
 
 class TodoHomeScreen extends StatelessWidget {
   TodoHomeScreen({super.key});
@@ -42,7 +44,9 @@ class TodoHomeScreen extends StatelessWidget {
             padding: const EdgeInsets.all(8.0),
             child: ElevatedButton(
               // TODO: Set create new task
-              onPressed: (){},
+              onPressed: (){
+                Navigator.push(context, MaterialPageRoute(builder: (context) => CreateTaskScreen()));
+              },
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.white,
                 elevation: 10,
@@ -93,6 +97,7 @@ class TodoHomeScreen extends StatelessWidget {
             SizedBox(height: 20),
             SingleChildScrollView(
               scrollDirection: Axis.vertical,
+              child: NoTasks(),
               // TODO: Set mapping for the listview builder
               // child: ListView.builder(itemBuilder: ),
             )

@@ -43,8 +43,8 @@ class DatabaseHelper{
       startDate TEXT,
       dueDate TEXT,
       priority TEXT,
-      tags TEXT,  -- Store tags as a comma-separated string
-      status INTEGER NOT NULL DEFAULT 0,  -- Default status to false (0)
+      tags TEXT,
+      status INTEGER NOT NULL DEFAULT 0,
       startTime TEXT
     )
   ''');
