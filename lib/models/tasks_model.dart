@@ -5,7 +5,7 @@ class Task {
   DateTime? startDate;
   DateTime? dueDate;
   String? priority;
-  List<String>? tags;
+  String? tags;
   bool status;
   String? startTime;
 
@@ -43,7 +43,7 @@ class Task {
       startDate: map['startDate'] != null ? DateTime.parse(map['startDate']) : null,
       dueDate: map['dueDate'] != null ? DateTime.parse(map['dueDate']) : null,
       priority: map['priority'],
-      tags: List<String>.from(map['tags']),
+      tags: map['tags'],
       status: map['status'] == 1,
       startTime: map['startTime'],
     );

@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:task_manager/services/database_service.dart';
+
+import '../models/tasks_model.dart';
 
 class TaskFormWidget extends StatefulWidget {
   final Function(Map<String, dynamic>) onSubmit;
@@ -26,6 +29,34 @@ class _TaskFormWidgetState extends State<TaskFormWidget> {
   final List<String> priorities = ["Low", "Medium", "High", "Critical"];
   final List<String> commonTags = ["Home", "School", "Personal", "Custom"];
 
+  void _submitForm() {
+    if (createTaskFormKey.currentState?.validate() ?? false) {
+      final task = Task(
+        title: _titleController.text.trim(),
+        description: _descriptionController.text.trim(),
+        startDate: _startDate,
+        dueDate: _dueDate,
+        priority: selectedPriorityIndex != null
+            ? ["Low", "Medium", "High", "Critical"][selectedPriorityIndex!]
+            : null,
+        tags: selectedTagsIndex != null
+            ? ["Home", "School", "Personal", "Custom"][selectedTagsIndex!]
+            : null,
+        startTime: startTimeController.text.trim(),
+      );
+
+      // Perform your task creation logic here
+      print("New Task Created: ${task.toMap()}");
+      print("Attempting to save to database");
+      DatabaseHelper.instance.insertTask(task);
+      print("Task enterred successfully");
+      Navigator.pop(context);
+
+    } else {
+      print("Form validation failed.");
+    }
+  }
+
   Future<void> selectStartTime(BuildContext context) async {
     final TimeOfDay? pickedTime = await showTimePicker(
       context: context,
@@ -47,8 +78,7 @@ class _TaskFormWidgetState extends State<TaskFormWidget> {
 
   void addCustomTag(String customTag) {
     setState(() {
-      commonTags.insert(
-          commonTags.length - 1, customTag);
+      commonTags.insert(commonTags.length - 1, customTag);
       selectedTagsIndex = commonTags.length - 2;
       showCustomField = false;
     });
@@ -68,17 +98,6 @@ class _TaskFormWidgetState extends State<TaskFormWidget> {
         } else {
           _dueDate = picked;
         }
-      });
-    }
-  }
-
-  void _submitForm() {
-    if (createTaskFormKey.currentState?.validate() ?? false) {
-      widget.onSubmit({
-        'title': _titleController.text,
-        'description': _descriptionController.text,
-        'startDate': _startDate,
-        'dueDate': _dueDate,
       });
     }
   }
@@ -109,6 +128,7 @@ class _TaskFormWidgetState extends State<TaskFormWidget> {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
+      scrollDirection: Axis.vertical,
       child: Form(
         key: createTaskFormKey,
         child: Column(
@@ -125,19 +145,54 @@ class _TaskFormWidgetState extends State<TaskFormWidget> {
             const SizedBox(
               height: 16,
             ),
-
-            // For Title
+            const Row(
+              children: [
+                Icon(FontAwesomeIcons.flag, size: 15),
+                SizedBox(
+                  width: 10,
+                ),
+                Text(
+                  "Title",
+                  style: TextStyle(
+                      fontWeight: FontWeight.w400,
+                      fontSize: 15,
+                      color: Colors.black),
+                )
+              ],
+            ),
+            const SizedBox(height: 16),
             TextFormField(
               controller: _titleController,
               decoration: inputDecoration.copyWith(hintText: "Title"),
-              style: TextStyle(fontSize: 18, color: Colors.black),
+              validator: (value) {
+                if (_dueDate == null) {
+                  return 'Please enter a title';
+                }
+                return null;
+              },
+              style: const TextStyle(fontSize: 18, color: Colors.black),
             ),
             const SizedBox(height: 16),
-
+            const Row(
+              children: [
+                Icon(FontAwesomeIcons.flag, size: 15),
+                SizedBox(
+                  width: 10,
+                ),
+                Text(
+                  "Description",
+                  style: TextStyle(
+                      fontWeight: FontWeight.w400,
+                      fontSize: 15,
+                      color: Colors.black),
+                )
+              ],
+            ),
+            const SizedBox(height: 16),
             TextFormField(
               controller: _descriptionController,
               decoration: inputDecoration.copyWith(hintText: "Description"),
-              maxLines: 3,
+              maxLines: 5,
               validator: (value) {
                 if (value == null || value.isEmpty) {
                   return 'Please enter a description';
@@ -146,7 +201,22 @@ class _TaskFormWidgetState extends State<TaskFormWidget> {
               },
             ),
             const SizedBox(height: 16),
-
+            const Row(
+              children: [
+                Icon(FontAwesomeIcons.flag, size: 15),
+                SizedBox(
+                  width: 10,
+                ),
+                Text(
+                  "Duration",
+                  style: TextStyle(
+                      fontWeight: FontWeight.w400,
+                      fontSize: 15,
+                      color: Colors.black),
+                )
+              ],
+            ),
+            const SizedBox(height: 16),
             Row(
               children: [
                 Expanded(
@@ -161,12 +231,6 @@ class _TaskFormWidgetState extends State<TaskFormWidget> {
                               ? _startDate!.toLocal().toString().split(' ')[0]
                               : '',
                         ),
-                        validator: (value) {
-                          if (_startDate == null) {
-                            return 'Please select a start date';
-                          }
-                          return null;
-                        },
                       ),
                     ),
                   ),
@@ -184,12 +248,6 @@ class _TaskFormWidgetState extends State<TaskFormWidget> {
                               ? _dueDate!.toLocal().toString().split(' ')[0]
                               : '',
                         ),
-                        validator: (value) {
-                          if (_dueDate == null) {
-                            return 'Please select a due date';
-                          }
-                          return null;
-                        },
                       ),
                     ),
                   ),
@@ -241,7 +299,7 @@ class _TaskFormWidgetState extends State<TaskFormWidget> {
                 }),
               ),
             ),
-
+            const SizedBox(height: 16),
             const Row(
               children: [
                 Icon(FontAwesomeIcons.flag, size: 15),
@@ -297,7 +355,8 @@ class _TaskFormWidgetState extends State<TaskFormWidget> {
                 padding: const EdgeInsets.only(top: 16.0),
                 child: TextFormField(
                   controller: customTagController,
-                  decoration: inputDecoration.copyWith(hintText: "Your custom tag"),
+                  decoration:
+                      inputDecoration.copyWith(hintText: "Your custom tag"),
                   onFieldSubmitted: (value) {
                     if (value.trim().isNotEmpty) {
                       addCustomTag(value.trim());
@@ -311,15 +370,20 @@ class _TaskFormWidgetState extends State<TaskFormWidget> {
               controller: startTimeController,
               readOnly: true,
               onTap: () => selectStartTime(context),
-              decoration: inputDecoration.copyWith(hintText: "Select start time"),
+              decoration:
+                  inputDecoration.copyWith(hintText: "Select start time"),
             ),
             const SizedBox(height: 32),
             Center(
-              child: ElevatedButton(
-                onPressed: _submitForm,
-                child: Text('Create Task'),
-              ),
-            ),
+                child: ElevatedButton(
+                    onPressed: () {
+                      _submitForm();
+                    },
+                    child: const Text("Be Productive",
+                        style: TextStyle(
+                            fontSize: 30,
+                            color: Colors.black,
+                            fontWeight: FontWeight.w600))))
           ],
         ),
       ),

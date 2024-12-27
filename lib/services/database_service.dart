@@ -2,7 +2,7 @@ import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 import '../models/tasks_model.dart';
 
-class DatabaseHelper{
+class DatabaseHelper {
   static const _databaseName = "task_database.db";
   static const _databaseVersion = 1;
   static const _tableName = "tasks";
@@ -13,41 +13,43 @@ class DatabaseHelper{
 
   DatabaseHelper._internal();
 
-  late Database _database;
+  Database? _database;
 
-  Future<Database> get database async{
-    if(_database != null)
-      return _database;
+  Future<Database> get database async {
+    if (_database != null && _database!.isOpen) {
+      return _database!;
+    }
 
+    // Initialize the database
     _database = await _initDatabase();
-    return _database;
+    return _database!;
   }
 
-  Future<Database> _initDatabase() async{
+  Future<Database> _initDatabase() async {
     final databasePath = await getDatabasesPath();
     final path = join(databasePath, _databaseName);
 
     return await openDatabase(
       path,
       version: _databaseVersion,
-      onCreate: _onCreate
+      onCreate: _onCreate,
     );
   }
 
   Future<void> _onCreate(Database db, int version) async {
     await db.execute('''
-    CREATE TABLE $_tableName (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
-      title TEXT NOT NULL,
-      description TEXT NOT NULL,
-      startDate TEXT,
-      dueDate TEXT,
-      priority TEXT,
-      tags TEXT,
-      status INTEGER NOT NULL DEFAULT 0,
-      startTime TEXT
-    )
-  ''');
+      CREATE TABLE $_tableName (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        title TEXT NOT NULL,
+        description TEXT NOT NULL,
+        startDate TEXT,
+        dueDate TEXT,
+        priority TEXT,
+        tags TEXT,
+        status INTEGER NOT NULL DEFAULT 0,
+        startTime TEXT
+      )
+    ''');
   }
 
   // Insert a task
@@ -59,7 +61,7 @@ class DatabaseHelper{
 
   // Get all tasks
   Future<List<Task>> getTasks() async {
-    Database db = await this.database;
+    Database db = await database;
     List<Map<String, dynamic>> maps = await db.query(_tableName);
     return List.generate(maps.length, (i) {
       return Task.fromMap(maps[i]);
