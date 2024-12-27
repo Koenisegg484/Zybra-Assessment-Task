@@ -1,38 +1,37 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../providers/user_preferences_providers.dart';
+import '../services/hive_services.dart';
 
-class NotificationToggleButton extends StatefulWidget {
+
+class NotificationToggleButton extends ConsumerWidget {
+  const NotificationToggleButton({super.key});
+
   @override
-  _NotificationToggleButtonState createState() => _NotificationToggleButtonState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    final notificationsEnabled = ref.watch(notificationsProvider);
 
-class _NotificationToggleButtonState extends State<NotificationToggleButton> {
-  bool _notificationsEnabled = false;
-
-  @override
-  Widget build(BuildContext context) {
     return ElevatedButton(
       onPressed: () {
-        setState(() {
-          _notificationsEnabled = !_notificationsEnabled;
-        });
-
-        //Todo: Add logic to enable/disable notifications here
+        final newStatus = !(notificationsEnabled ?? true);
+        HiveService.saveNotifications(newStatus);
+        ref.invalidate(notificationsProvider);
       },
       style: ElevatedButton.styleFrom(
-        backgroundColor: _notificationsEnabled ? Colors.green : Colors.red,
-        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+        backgroundColor: notificationsEnabled == true ? Colors.green : Colors.red,
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
           Icon(
-            _notificationsEnabled ? Icons.notifications_active : Icons.notifications_off,
+            notificationsEnabled == true ? Icons.notifications_active : Icons.notifications_off,
             color: Colors.white,
           ),
-          SizedBox(width: 10),
+          const SizedBox(width: 10),
           Text(
-            _notificationsEnabled ? 'On' : 'Off',
-            style: TextStyle(color: Colors.white),
+            notificationsEnabled == true ? 'On' : 'Off',
+            style: const TextStyle(color: Colors.white),
           ),
         ],
       ),

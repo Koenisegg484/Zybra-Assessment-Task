@@ -73,8 +73,9 @@ class TellNameScreen extends StatelessWidget {
                       // Saving the name to Hive
                       var name = nameController.text;
                       if (name != "") {
-                        UserPreferences userprefs = UserPreferences(username: name);
                         HiveService.saveName(name);
+                        HiveService.saveAppTheme("system");
+                        HiveService.saveNotifications(true);
                         print("Your name is ${HiveService.getName()}");
                         Navigator.push(context, MaterialPageRoute(builder: (context) => TodoHomeScreen()));
                       } else {

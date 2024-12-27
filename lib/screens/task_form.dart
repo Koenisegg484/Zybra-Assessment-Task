@@ -45,11 +45,7 @@ class _TaskFormWidgetState extends State<TaskFormWidget> {
         startTime: startTimeController.text.trim(),
       );
 
-      // Perform your task creation logic here
-      print("New Task Created: ${task.toMap()}");
-      print("Attempting to save to database");
       DatabaseHelper.instance.insertTask(task);
-      print("Task enterred successfully");
       Navigator.pop(context);
 
     } else {
@@ -104,16 +100,17 @@ class _TaskFormWidgetState extends State<TaskFormWidget> {
 
   final InputDecoration inputDecoration = InputDecoration(
     hintStyle: TextStyle(
-      fontSize: 18,
-      color: Colors.grey.shade700,
+      fontSize: 22,
+      color: Colors.grey.shade400,
+      fontWeight: FontWeight.w600
     ),
     filled: true,
-    fillColor: Colors.grey.shade300,
+    fillColor: Colors.grey.shade50,
     contentPadding:
         const EdgeInsets.symmetric(vertical: 16.0, horizontal: 20.0),
     border: OutlineInputBorder(
       borderRadius: BorderRadius.circular(22),
-      borderSide: BorderSide.none, // Set border width to 0
+      borderSide: BorderSide.none,
     ),
     enabledBorder: OutlineInputBorder(
       borderRadius: BorderRadius.circular(22),
@@ -145,17 +142,25 @@ class _TaskFormWidgetState extends State<TaskFormWidget> {
             const SizedBox(
               height: 16,
             ),
-            const Row(
+            Row(
               children: [
-                Icon(FontAwesomeIcons.flag, size: 15),
-                SizedBox(
+                Container(
+                  padding: const EdgeInsets.all(6),
+                  decoration: BoxDecoration(
+                    color: const Color(0xfffa60f6),
+                    border: Border.all(color: Colors.black, width: 1),
+                    borderRadius: const BorderRadius.all(Radius.circular(10)),
+                  ),
+                  child: const Icon(FontAwesomeIcons.flag, size: 15, color: Colors.black,),
+                ),
+                const SizedBox(
                   width: 10,
                 ),
-                Text(
+                const Text(
                   "Title",
                   style: TextStyle(
                       fontWeight: FontWeight.w400,
-                      fontSize: 15,
+                      fontSize: 25,
                       color: Colors.black),
                 )
               ],
@@ -173,17 +178,25 @@ class _TaskFormWidgetState extends State<TaskFormWidget> {
               style: const TextStyle(fontSize: 18, color: Colors.black),
             ),
             const SizedBox(height: 16),
-            const Row(
+            Row(
               children: [
-                Icon(FontAwesomeIcons.flag, size: 15),
-                SizedBox(
+                Container(
+                  padding: const EdgeInsets.all(6),
+                  decoration: BoxDecoration(
+                    color: Color(0xff6ffa60),
+                    border: Border.all(color: Colors.black, width: 1),
+                    borderRadius: const BorderRadius.all(Radius.circular(10)),
+                  ),
+                  child: const Icon(FontAwesomeIcons.flag, size: 15, color: Colors.black,),
+                ),
+                const SizedBox(
                   width: 10,
                 ),
-                Text(
+                const Text(
                   "Description",
                   style: TextStyle(
                       fontWeight: FontWeight.w400,
-                      fontSize: 15,
+                      fontSize: 25,
                       color: Colors.black),
                 )
               ],
@@ -201,17 +214,25 @@ class _TaskFormWidgetState extends State<TaskFormWidget> {
               },
             ),
             const SizedBox(height: 16),
-            const Row(
+            Row(
               children: [
-                Icon(FontAwesomeIcons.flag, size: 15),
-                SizedBox(
+                Container(
+                  padding: const EdgeInsets.all(6),
+                  decoration: BoxDecoration(
+                    color: Color(0xff606dfa),
+                    border: Border.all(color: Colors.black, width: 1),
+                    borderRadius: const BorderRadius.all(Radius.circular(10)),
+                  ),
+                  child: const Icon(FontAwesomeIcons.flag, size: 15, color: Colors.black,),
+                ),
+                const SizedBox(
                   width: 10,
                 ),
-                Text(
+                const Text(
                   "Duration",
                   style: TextStyle(
                       fontWeight: FontWeight.w400,
-                      fontSize: 15,
+                      fontSize: 25,
                       color: Colors.black),
                 )
               ],
@@ -255,17 +276,25 @@ class _TaskFormWidgetState extends State<TaskFormWidget> {
               ],
             ),
             const SizedBox(height: 16),
-            const Row(
+            Row(
               children: [
-                Icon(FontAwesomeIcons.flag, size: 15),
-                SizedBox(
+                Container(
+                  padding: const EdgeInsets.all(6),
+                  decoration: BoxDecoration(
+                    color: Color(0xfffa6363),
+                    border: Border.all(color: Colors.black, width: 1),
+                    borderRadius: const BorderRadius.all(Radius.circular(10)),
+                  ),
+                  child: const Icon(FontAwesomeIcons.flag, size: 15, color: Colors.black,),
+                ),
+                const SizedBox(
                   width: 10,
                 ),
-                Text(
+                const Text(
                   "Priority",
                   style: TextStyle(
                       fontWeight: FontWeight.w400,
-                      fontSize: 15,
+                      fontSize: 25,
                       color: Colors.black),
                 )
               ],
@@ -292,25 +321,33 @@ class _TaskFormWidgetState extends State<TaskFormWidget> {
                           selectedPriorityIndex = selected ? index : null;
                         });
                       },
-                      selectedColor: Colors.blue,
-                      backgroundColor: Colors.grey.shade300,
+                      selectedColor: Colors.red,
+                      backgroundColor: Colors.grey.shade100,
                     ),
                   );
                 }),
               ),
             ),
             const SizedBox(height: 16),
-            const Row(
+            Row(
               children: [
-                Icon(FontAwesomeIcons.flag, size: 15),
-                SizedBox(
+                Container(
+                  padding: const EdgeInsets.all(6),
+                  decoration: BoxDecoration(
+                    color: Color(0xfffadb60),
+                    border: Border.all(color: Colors.black, width: 1),
+                    borderRadius: const BorderRadius.all(Radius.circular(10)),
+                  ),
+                  child: const Icon(FontAwesomeIcons.flag, size: 15, color: Colors.black,),
+                ),
+                const SizedBox(
                   width: 10,
                 ),
-                Text(
+                const Text(
                   "Tags",
                   style: TextStyle(
                       fontWeight: FontWeight.w400,
-                      fontSize: 15,
+                      fontSize: 25,
                       color: Colors.black),
                 )
               ],
@@ -344,7 +381,7 @@ class _TaskFormWidgetState extends State<TaskFormWidget> {
                         }
                       },
                       selectedColor: Colors.blue,
-                      backgroundColor: Colors.grey.shade300,
+                      backgroundColor: Colors.grey.shade100,
                     ),
                   );
                 }),
@@ -379,11 +416,21 @@ class _TaskFormWidgetState extends State<TaskFormWidget> {
                     onPressed: () {
                       _submitForm();
                     },
-                    child: const Text("Be Productive",
-                        style: TextStyle(
-                            fontSize: 30,
-                            color: Colors.black,
-                            fontWeight: FontWeight.w600))))
+                    style: ElevatedButton.styleFrom(
+                      overlayColor: Colors.blue,
+                      backgroundColor: Colors.black,
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10)))
+                    ),
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(vertical: 12),
+                      width: double.infinity,
+                      child: const Text("Be Productive",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              fontSize: 40,
+                              color: Colors.white,
+                              fontWeight: FontWeight.w600)),
+                    )))
           ],
         ),
       ),
