@@ -90,4 +90,15 @@ class DatabaseHelper {
     );
     return result;
   }
+
+  Future<int> updateTaskStatus(int id, bool newStatus) async {
+    Database db = await database;
+    return await db.update(
+      _tableName,
+      {'status': newStatus ? 1 : 0},
+      where: 'id = ?',
+      whereArgs: [id],
+    );
+  }
+
 }

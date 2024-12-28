@@ -48,4 +48,28 @@ class Task {
       startTime: map['startTime'],
     );
   }
+
+  Task copyWith({
+    int? id,
+    String? title,
+    String? description,
+    String? priority,
+    String? tags,
+    DateTime? startDate,
+    DateTime? dueDate,
+    String? startTime,
+    bool? status,
+  }) {
+    return Task(
+      id: id ?? this.id,
+      title: title ?? this.title,
+      priority: priority ?? this.priority,
+      tags: tags ?? this.tags,
+      startDate: startDate ?? this.startDate,
+      dueDate: dueDate ?? this.dueDate,
+      startTime: startTime ?? this.startTime,
+      status: status ?? this.status,
+      description: description ?? this.description,
+    );
+  }
 }

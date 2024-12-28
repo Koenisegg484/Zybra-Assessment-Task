@@ -25,28 +25,29 @@ class TodoHomeScreen extends ConsumerWidget {
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
         child: Column(
           children: [
-            const Row(
-              children: [
-                SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      SortChip(title: "All", nums: 12),
-                      SortChip(title: "Completed", nums: 12),
-                      SortChip(title: "Pending", nums: 9),
-                    ],
-                  ),
-                ),
-              ],
-            ),
+            // TODO: Make Filters
+            // const Row(
+            //   children: [
+            //     SingleChildScrollView(
+            //       scrollDirection: Axis.horizontal,
+            //       child: Row(
+            //         mainAxisAlignment: MainAxisAlignment.spaceAround,
+            //         children: [
+            //           SortChip(title: "All", nums: 12),
+            //           SortChip(title: "Completed", nums: 12),
+            //           SortChip(title: "Pending", nums: 9),
+            //         ],
+            //       ),
+            //     ),
+            //   ],
+            // ),
             Expanded(
               child: tasksList.when(
                 data: (tasks) {
                   if (tasks.isEmpty) {
                     return const Center(child: NoTasks());
                   }
-                  return TaskList(tasks: tasks);
+                  return TaskList();
                 },
                 loading: () => const Center(child: CircularProgressIndicator()),
                 error: (err, stack) => Center(child: Text('Error: $err')),
