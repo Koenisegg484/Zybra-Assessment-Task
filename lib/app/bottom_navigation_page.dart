@@ -1,9 +1,9 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:task_manager/screens/create_task_screen.dart';
 import 'package:task_manager/screens/home_screen.dart';
 import 'package:task_manager/screens/preferences_screen.dart';
-
-import '../config/themes/size_config.dart';
+import '../config/themes/constants.dart';
 
 class BottomNavigationPage extends StatefulWidget {
   const BottomNavigationPage({super.key});
@@ -14,8 +14,8 @@ class BottomNavigationPage extends StatefulWidget {
 
 class _BottomNavigationPageState extends State<BottomNavigationPage> {
   final List<Widget> _pages = [
-    TodoHomeScreen(),
-    Container(),
+    const TodoHomeScreen(),
+    CreateTaskScreen(),
     PreferencesScreen()
   ];
 
@@ -24,33 +24,33 @@ class _BottomNavigationPageState extends State<BottomNavigationPage> {
 
   final List<Widget> _navItems = [
     ClipRRect(
-        borderRadius: BorderRadius.all(Radius.circular(50)),
+        borderRadius: BR50,
         child: Container(
           padding: const EdgeInsets.all(5),
             decoration: BoxDecoration(
                 color: Colors.grey.shade800
             ),
-            child: Icon(Icons.home_rounded, color: Colors.white,)
+            child: whiteSimpleIcon(icondata: Icons.home_rounded)
         )
     ),
     ClipRRect(
-        borderRadius: BorderRadius.all(Radius.circular(50)),
+        borderRadius: BR50,
         child: Container(
           padding: const EdgeInsets.all(5),
             decoration: BoxDecoration(
                 color: Colors.grey.shade800
             ),
-            child: Icon(Icons.add_rounded, color: Colors.white,)
+            child: whiteSimpleIcon(icondata: Icons.add_rounded)
         )
     ),
     ClipRRect(
-      borderRadius: BorderRadius.all(Radius.circular(50)),
+      borderRadius: BR50,
         child: Container(
           padding: const EdgeInsets.all(5),
           decoration: BoxDecoration(
             color: Colors.grey.shade800
           ),
-            child: Icon(Icons.settings_rounded, color: Colors.white,)
+            child: whiteSimpleIcon(icondata: Icons.settings_rounded)
         )
     )
   ];
@@ -58,19 +58,19 @@ class _BottomNavigationPageState extends State<BottomNavigationPage> {
   @override
   Widget build(BuildContext context) {
 
-    SizeConfig().init(context);
     return Scaffold(
       bottomNavigationBar: CurvedNavigationBar(
         height: 60,
-        color: Color(0xfef5bbfd),
+        color: lightPink,
         index: _currentIndex,
         items: _navItems,
         backgroundColor: Colors.transparent,
+        animationDuration: const Duration(milliseconds: 400),
         onTap: (index) {
           setState(() {
             _currentIndex = index;
           });
-          _pageController.animateToPage( index, duration: const Duration(milliseconds: 300), curve: Curves.easeInOut, );
+          _pageController.animateToPage( index, duration: const Duration(milliseconds: 400), curve: Curves.easeInOut, );
         },
       ),
       body: PageView(

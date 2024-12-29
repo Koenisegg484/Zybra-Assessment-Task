@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:task_manager/services/hive_services.dart';
+import 'package:task_manager/config/themes/constants.dart';
 import 'package:task_manager/widgets/theme_options.dart';
 import 'package:task_manager/widgets/toggle_button.dart';
 
@@ -8,7 +8,7 @@ import '../providers/user_preferences_providers.dart';
 
 
 class PreferencesScreen extends ConsumerWidget {
-  PreferencesScreen({super.key});
+  const PreferencesScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -45,7 +45,7 @@ class PreferencesScreen extends ConsumerWidget {
         ),
       ),
       body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+        padding: miniPadding,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -119,7 +119,7 @@ class PreferencesScreen extends ConsumerWidget {
                         fontWeight: FontWeight.w500,
                         fontSize: 22)),
                 const Spacer(),
-                NotificationToggleButton()
+                const NotificationToggleButton()
               ],
             ),
             const Divider(),
@@ -140,7 +140,7 @@ class PreferencesScreen extends ConsumerWidget {
                             fontSize: 22)),
                   ],
                 ),
-                ThemeOptions()
+                const ThemeOptions()
               ],
             ),
           ],

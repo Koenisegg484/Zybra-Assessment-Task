@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:task_manager/config/themes/constants.dart';
 import 'package:task_manager/services/database_service.dart';
+import 'package:task_manager/widgets/error_bars.dart';
 
 import '../models/tasks_model.dart';
 
@@ -49,7 +51,7 @@ class _TaskFormWidgetState extends State<TaskFormWidget> {
       Navigator.pop(context);
 
     } else {
-      print("Form validation failed.");
+      showCustomToast("Some Fields were left empty");
     }
   }
 
@@ -139,33 +141,9 @@ class _TaskFormWidgetState extends State<TaskFormWidget> {
                   color: Colors.black,
                   fontWeight: FontWeight.w600),
             ),
-            const SizedBox(
-              height: 16,
-            ),
-            Row(
-              children: [
-                Container(
-                  padding: const EdgeInsets.all(6),
-                  decoration: BoxDecoration(
-                    color: const Color(0xfffa60f6),
-                    border: Border.all(color: Colors.black, width: 1),
-                    borderRadius: const BorderRadius.all(Radius.circular(10)),
-                  ),
-                  child: const Icon(FontAwesomeIcons.flag, size: 15, color: Colors.black,),
-                ),
-                const SizedBox(
-                  width: 10,
-                ),
-                const Text(
-                  "Title",
-                  style: TextStyle(
-                      fontWeight: FontWeight.w400,
-                      fontSize: 25,
-                      color: Colors.black),
-                )
-              ],
-            ),
-            const SizedBox(height: 16),
+            mediumSpacingHeight,
+            tagHeading(color: lightPink, icondata: const Icon(FontAwesomeIcons.flag, size: 15, color: Colors.black,), title: "Title"),
+            mediumSpacingHeight,
             TextFormField(
               controller: _titleController,
               decoration: inputDecoration.copyWith(hintText: "Title"),
@@ -177,31 +155,10 @@ class _TaskFormWidgetState extends State<TaskFormWidget> {
               },
               style: const TextStyle(fontSize: 18, color: Colors.black),
             ),
-            const SizedBox(height: 16),
-            Row(
-              children: [
-                Container(
-                  padding: const EdgeInsets.all(6),
-                  decoration: BoxDecoration(
-                    color: Color(0xff6ffa60),
-                    border: Border.all(color: Colors.black, width: 1),
-                    borderRadius: const BorderRadius.all(Radius.circular(10)),
-                  ),
-                  child: const Icon(FontAwesomeIcons.flag, size: 15, color: Colors.black,),
-                ),
-                const SizedBox(
-                  width: 10,
-                ),
-                const Text(
-                  "Description",
-                  style: TextStyle(
-                      fontWeight: FontWeight.w400,
-                      fontSize: 25,
-                      color: Colors.black),
-                )
-              ],
-            ),
-            const SizedBox(height: 16),
+            mediumSpacingHeight,
+
+            tagHeading(color: lightGreen, icondata: const Icon(FontAwesomeIcons.noteSticky, size: 15, color: Colors.black,), title: "Description"),
+            mediumSpacingHeight,
             TextFormField(
               controller: _descriptionController,
               decoration: inputDecoration.copyWith(hintText: "Description"),
@@ -213,31 +170,10 @@ class _TaskFormWidgetState extends State<TaskFormWidget> {
                 return null;
               },
             ),
-            const SizedBox(height: 16),
-            Row(
-              children: [
-                Container(
-                  padding: const EdgeInsets.all(6),
-                  decoration: BoxDecoration(
-                    color: Color(0xff606dfa),
-                    border: Border.all(color: Colors.black, width: 1),
-                    borderRadius: const BorderRadius.all(Radius.circular(10)),
-                  ),
-                  child: const Icon(FontAwesomeIcons.flag, size: 15, color: Colors.black,),
-                ),
-                const SizedBox(
-                  width: 10,
-                ),
-                const Text(
-                  "Duration",
-                  style: TextStyle(
-                      fontWeight: FontWeight.w400,
-                      fontSize: 25,
-                      color: Colors.black),
-                )
-              ],
-            ),
-            const SizedBox(height: 16),
+            mediumSpacingHeight,
+
+            tagHeading(color: lightPurple, icondata: const Icon(FontAwesomeIcons.calendarDays, size: 15, color: Colors.black,), title: "Duration"),
+            mediumSpacingHeight,
             Row(
               children: [
                 Expanded(
@@ -275,31 +211,9 @@ class _TaskFormWidgetState extends State<TaskFormWidget> {
                 ),
               ],
             ),
-            const SizedBox(height: 16),
-            Row(
-              children: [
-                Container(
-                  padding: const EdgeInsets.all(6),
-                  decoration: BoxDecoration(
-                    color: Color(0xfffa6363),
-                    border: Border.all(color: Colors.black, width: 1),
-                    borderRadius: const BorderRadius.all(Radius.circular(10)),
-                  ),
-                  child: const Icon(FontAwesomeIcons.flag, size: 15, color: Colors.black,),
-                ),
-                const SizedBox(
-                  width: 10,
-                ),
-                const Text(
-                  "Priority",
-                  style: TextStyle(
-                      fontWeight: FontWeight.w400,
-                      fontSize: 25,
-                      color: Colors.black),
-                )
-              ],
-            ),
-            const SizedBox(height: 16),
+            mediumSpacingHeight,
+            tagHeading(color: lightRed, icondata: const Icon(FontAwesomeIcons.exclamation, size: 15, color: Colors.black,), title: "Priority"),
+            mediumSpacingHeight,
             SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               child: Row(
@@ -328,31 +242,10 @@ class _TaskFormWidgetState extends State<TaskFormWidget> {
                 }),
               ),
             ),
-            const SizedBox(height: 16),
-            Row(
-              children: [
-                Container(
-                  padding: const EdgeInsets.all(6),
-                  decoration: BoxDecoration(
-                    color: Color(0xfffadb60),
-                    border: Border.all(color: Colors.black, width: 1),
-                    borderRadius: const BorderRadius.all(Radius.circular(10)),
-                  ),
-                  child: const Icon(FontAwesomeIcons.flag, size: 15, color: Colors.black,),
-                ),
-                const SizedBox(
-                  width: 10,
-                ),
-                const Text(
-                  "Tags",
-                  style: TextStyle(
-                      fontWeight: FontWeight.w400,
-                      fontSize: 25,
-                      color: Colors.black),
-                )
-              ],
-            ),
-            const SizedBox(height: 16),
+            mediumSpacingHeight,
+
+            tagHeading(color: lightYellow, icondata: const Icon(FontAwesomeIcons.tags, size: 15, color: Colors.black,), title: "Tags"),
+            mediumSpacingHeight,
             SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               child: Row(
@@ -402,7 +295,9 @@ class _TaskFormWidgetState extends State<TaskFormWidget> {
                   },
                 ),
               ),
-            const SizedBox(height: 16),
+            mediumSpacingHeight,
+            tagHeading(color: const Color(0xffaffffc),icondata: const Icon(FontAwesomeIcons.clock, size: 15, color: Colors.black,), title: "Start Time"),
+            mediumSpacingHeight,
             TextFormField(
               controller: startTimeController,
               readOnly: true,
@@ -419,7 +314,7 @@ class _TaskFormWidgetState extends State<TaskFormWidget> {
                     style: ElevatedButton.styleFrom(
                       overlayColor: Colors.blue,
                       backgroundColor: Colors.black,
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10)))
+                      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10)))
                     ),
                     child: Container(
                       padding: const EdgeInsets.symmetric(vertical: 12),

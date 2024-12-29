@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
+import 'package:task_manager/screens/task_details_screen.dart';
 import 'package:task_manager/screens/update_task_screen.dart';
+import '../config/themes/animated_page_router.dart';
 import '../models/tasks_model.dart';
 import '../providers/tasks_list_providers.dart';
 
@@ -9,22 +11,34 @@ class TasksListEntry extends ConsumerWidget {
   const TasksListEntry({
     super.key,
     required this.task,
+    this.onTaskSelected
   });
 
   final Task task;
 
+  final void Function(Task task)? onTaskSelected;
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+
+    final isTablet = MediaQuery.of(context).size.width >= 600;
+
     return ListTile(
       contentPadding: const EdgeInsets.all(0),
       onTap: () {
-        Navigator.push(context, MaterialPageRoute(builder: (context) => UpdateTaskScreen(task: task)));
+        if (isTablet && onTaskSelected != null) {
+          onTaskSelected!(task);
+        } else {
+          Navigator.push(
+            context,
+            EntranceSlidePageRoute(page: TaskDetailsScreen(currentTask: task)),
+          );
+        }
       },
-
       isThreeLine: true,
       subtitle: Container(
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(30)),
+          borderRadius: const BorderRadius.all(Radius.circular(30)),
           border: Border.all(width: 1),
           color: const Color(0xffffe5e5),
         ),
@@ -81,7 +95,7 @@ class TasksListEntry extends ConsumerWidget {
             Row(
               children: [
                 const Icon(
-                  Icons.calendar_month_rounded,
+                  Icons.access_time_rounded,
                   color: Colors.grey,
                   size: 25,
                 ),
@@ -90,14 +104,14 @@ class TasksListEntry extends ConsumerWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Start Date",
+                      "Start Time",
                       style: TextStyle(
                           color: Colors.grey.shade600,
                           fontWeight: FontWeight.w500,
                           fontSize: 15),
                     ),
                     Text(
-                      formatDate(task.startDate!) ?? 'N/A',
+                      task.startTime ?? 'N/A',
                       style: const TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.w600,
@@ -105,6 +119,36 @@ class TasksListEntry extends ConsumerWidget {
                     ),
                   ],
                 ),
+              ],
+            ),
+            const SizedBox(height: 12),
+            Row(
+              children: [
+                const Icon(
+                  Icons.calendar_month_rounded,
+                  color: Colors.grey,
+                  size: 25,
+                ),
+                // const SizedBox(width: 12),
+                // Column(
+                //   crossAxisAlignment: CrossAxisAlignment.start,
+                //   children: [
+                //     Text(
+                //       "Start Date",
+                //       style: TextStyle(
+                //           color: Colors.grey.shade600,
+                //           fontWeight: FontWeight.w500,
+                //           fontSize: 15),
+                //     ),
+                //     Text(
+                //       formatDate(task.startDate!) ?? 'N/A',
+                //       style: const TextStyle(
+                //           fontSize: 16,
+                //           fontWeight: FontWeight.w600,
+                //           color: Colors.black),
+                //     ),
+                //   ],
+                // ),
                 const SizedBox(width: 12),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -126,25 +170,15 @@ class TasksListEntry extends ConsumerWidget {
                   ],
                 ),
                 const Spacer(),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Start Time",
-                      style: TextStyle(
-                          color: Colors.grey.shade600,
-                          fontWeight: FontWeight.w500,
-                          fontSize: 15),
+                ElevatedButton(onPressed: () {
+                  // Navigator.push(context, MaterialPageRoute(builder: (context) => UpdateTaskScreen(task: task)));
+                  Navigator.push( context, MagnificationPageRoute(page: UpdateTaskScreen(task: task)), );
+                },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.transparent,
+                      elevation: 0
                     ),
-                    Text(
-                      task.startTime ?? 'N/A',
-                      style: const TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w600,
-                          color: Colors.black),
-                    ),
-                  ],
-                ),
+                child: Icon(Icons.edit_note_rounded, size: 40, color: Colors.black87,)),
               ],
             ),
           ],

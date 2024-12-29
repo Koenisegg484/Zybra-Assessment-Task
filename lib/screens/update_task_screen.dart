@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:task_manager/screens/task_form.dart';
 import 'package:task_manager/screens/update_task_form.dart';
 
 import '../models/tasks_model.dart';
@@ -7,7 +6,7 @@ import '../models/tasks_model.dart';
 class UpdateTaskScreen extends StatelessWidget {
   final Task task;
 
-  UpdateTaskScreen({super.key, required this.task});
+  const UpdateTaskScreen({super.key, required this.task});
 
   @override
   Widget build(BuildContext context) {

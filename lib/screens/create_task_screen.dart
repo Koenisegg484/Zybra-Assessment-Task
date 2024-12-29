@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:task_manager/config/themes/constants.dart';
 import 'package:task_manager/screens/task_form.dart';
 
-import '../models/tasks_model.dart';
-
 class CreateTaskScreen extends StatelessWidget {
-  CreateTaskScreen({super.key});
+  const CreateTaskScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +16,7 @@ class CreateTaskScreen extends StatelessWidget {
         height: double.infinity,
         width: double.infinity,
         color: Colors.white,
-        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+        padding: miniPadding,
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,

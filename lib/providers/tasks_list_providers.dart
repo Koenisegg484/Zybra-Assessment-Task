@@ -31,6 +31,10 @@ class TasksNotifier extends StateNotifier<List<Task>> {
     return DatabaseHelper.instance.deleteTask(id);
   });
 
+  Task? getTaskById(int id) {
+    return state.firstWhere((task) => task.id == id);
+  }
+
 }
 
 final tasksNotifierProvider =
@@ -47,6 +51,8 @@ final tasksListProvider = FutureProvider<List<Task>>((ref) async {
 final deleteTaskProvider = FutureProvider.family<int, int>((ref, id) async {
   return DatabaseHelper.instance.deleteTask(id);
 });
+
+final selectedTaskProvider = StateProvider<Task?>((ref) => null);
 
 
 

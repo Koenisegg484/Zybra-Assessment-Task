@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:task_manager/config/themes/constants.dart';
+import 'package:task_manager/widgets/error_bars.dart';
 
 import '../models/tasks_model.dart';
 import '../providers/tasks_list_providers.dart';
@@ -10,7 +12,7 @@ class UpdateTaskFormWidget extends ConsumerStatefulWidget{
   final Function(Map<String, dynamic>) onUpdate;
 
   const UpdateTaskFormWidget({
-    Key? key,required this.existingTask,required this.onUpdate,}) : super(key: key);
+    super.key,required this.existingTask,required this.onUpdate,});
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() => _UpdateTaskFormWidgetState();
@@ -70,7 +72,7 @@ class _UpdateTaskFormWidgetState extends ConsumerState<UpdateTaskFormWidget> {
       // Close the form
       Navigator.pop(context);
     } else {
-      print("Form validation failed.");
+      showCustomToast("Oops!!! Some Fields were left Empty.");
     }
   }
 
@@ -162,91 +164,26 @@ class _UpdateTaskFormWidgetState extends ConsumerState<UpdateTaskFormWidget> {
                   fontWeight: FontWeight.w600,
                 ),
               ),
-              const SizedBox(height: 16),
-              Row(
-                children: [
-                  Container(
-                    padding: const EdgeInsets.all(6),
-                    decoration: BoxDecoration(
-                      color: const Color(0xfffa60f6),
-                      border: Border.all(color: Colors.black, width: 1),
-                      borderRadius: const BorderRadius.all(Radius.circular(10)),
-                    ),
-                    child: const Icon(FontAwesomeIcons.flag, size: 15, color: Colors.black,),
-                  ),
-                  const SizedBox(
-                    width: 10,
-                  ),
-                  const Text(
-                    "Title",
-                    style: TextStyle(
-                        fontWeight: FontWeight.w400,
-                        fontSize: 25,
-                        color: Colors.black),
-                  )
-                ],
-              ),
-              const SizedBox(height: 16),
+              mediumSpacingHeight,
+              tagHeading(color: lightPink, icondata: const Icon(FontAwesomeIcons.flag, size: 15, color: Colors.black,), title: "Title"),
+              mediumSpacingHeight,
               TextFormField(
                 controller: _titleController,
                 decoration: inputDecoration.copyWith(hintText: "Title"),
                 validator: (value) => value == null || value.isEmpty ? "Please enter a title" : null,
               ),
-              const SizedBox(height: 16),
-              Row(
-                children: [
-                  Container(
-                    padding: const EdgeInsets.all(6),
-                    decoration: BoxDecoration(
-                      color: Color(0xff6ffa60),
-                      border: Border.all(color: Colors.black, width: 1),
-                      borderRadius: const BorderRadius.all(Radius.circular(10)),
-                    ),
-                    child: const Icon(FontAwesomeIcons.flag, size: 15, color: Colors.black,),
-                  ),
-                  const SizedBox(
-                    width: 10,
-                  ),
-                  const Text(
-                    "Description",
-                    style: TextStyle(
-                        fontWeight: FontWeight.w400,
-                        fontSize: 25,
-                        color: Colors.black),
-                  )
-                ],
-              ),
-              const SizedBox(height: 16),
+              mediumSpacingHeight,
+              tagHeading(color: lightGreen, icondata: const Icon(FontAwesomeIcons.noteSticky, size: 15, color: Colors.black,), title: "Description"),
+              mediumSpacingHeight,
               TextFormField(
                 controller: _descriptionController,
                 decoration: inputDecoration.copyWith(hintText: "Description"),
                 maxLines: 5,
                 validator: (value) => value == null || value.isEmpty ? "Please enter a description" : null,
               ),
-              const SizedBox(height: 16),
-              Row(
-                children: [
-                  Container(
-                    padding: const EdgeInsets.all(6),
-                    decoration: BoxDecoration(
-                      color: Color(0xff606dfa),
-                      border: Border.all(color: Colors.black, width: 1),
-                      borderRadius: const BorderRadius.all(Radius.circular(10)),
-                    ),
-                    child: const Icon(FontAwesomeIcons.flag, size: 15, color: Colors.black,),
-                  ),
-                  const SizedBox(
-                    width: 10,
-                  ),
-                  const Text(
-                    "Duration",
-                    style: TextStyle(
-                        fontWeight: FontWeight.w400,
-                        fontSize: 25,
-                        color: Colors.black),
-                  )
-                ],
-              ),
+              mediumSpacingHeight,
+              tagHeading(color: lightPurple, icondata: const Icon(FontAwesomeIcons.calendarDays, size: 15, color: Colors.black,), title: "Duration"),
+
               Row(
                 children: [
                   Expanded(
@@ -278,31 +215,9 @@ class _UpdateTaskFormWidgetState extends ConsumerState<UpdateTaskFormWidget> {
                   ),
                 ],
               ),
-              const SizedBox(height: 16),
-              Row(
-                children: [
-                  Container(
-                    padding: const EdgeInsets.all(6),
-                    decoration: BoxDecoration(
-                      color: Color(0xfffa6363),
-                      border: Border.all(color: Colors.black, width: 1),
-                      borderRadius: const BorderRadius.all(Radius.circular(10)),
-                    ),
-                    child: const Icon(FontAwesomeIcons.flag, size: 15, color: Colors.black,),
-                  ),
-                  const SizedBox(
-                    width: 10,
-                  ),
-                  const Text(
-                    "Priority",
-                    style: TextStyle(
-                        fontWeight: FontWeight.w400,
-                        fontSize: 25,
-                        color: Colors.black),
-                  )
-                ],
-              ),
-              const SizedBox(height: 16),
+              mediumSpacingHeight,
+              tagHeading(color: lightRed, icondata: const Icon(FontAwesomeIcons.exclamation, size: 15, color: Colors.black,), title: "Priority"),
+              mediumSpacingHeight,
               SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: Row(
@@ -329,31 +244,9 @@ class _UpdateTaskFormWidgetState extends ConsumerState<UpdateTaskFormWidget> {
                   }),
                 ),
               ),
-              const SizedBox(height: 16),
-              Row(
-                children: [
-                  Container(
-                    padding: const EdgeInsets.all(6),
-                    decoration: BoxDecoration(
-                      color: Color(0xfffadb60),
-                      border: Border.all(color: Colors.black, width: 1),
-                      borderRadius: const BorderRadius.all(Radius.circular(10)),
-                    ),
-                    child: const Icon(FontAwesomeIcons.flag, size: 15, color: Colors.black,),
-                  ),
-                  const SizedBox(
-                    width: 10,
-                  ),
-                  const Text(
-                    "Tags",
-                    style: TextStyle(
-                        fontWeight: FontWeight.w400,
-                        fontSize: 25,
-                        color: Colors.black),
-                  )
-                ],
-              ),
-              const SizedBox(height: 16),
+              mediumSpacingHeight,
+              tagHeading(color: lightYellow, icondata: const Icon(FontAwesomeIcons.tags, size: 15, color: Colors.black,), title: "Tags"),
+              mediumSpacingHeight,
               SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: Row(
@@ -403,7 +296,9 @@ class _UpdateTaskFormWidgetState extends ConsumerState<UpdateTaskFormWidget> {
                     },
                   ),
                 ),
-              const SizedBox(height: 16),
+              mediumSpacingHeight,
+              tagHeading(color: const Color(0xffaffffc),icondata: const Icon(FontAwesomeIcons.clock, size: 15, color: Colors.black,), title: "Start Time"),
+              mediumSpacingHeight,
               TextFormField(
                 controller: startTimeController,
                 readOnly: true,
@@ -420,7 +315,7 @@ class _UpdateTaskFormWidgetState extends ConsumerState<UpdateTaskFormWidget> {
                       style: ElevatedButton.styleFrom(
                           overlayColor: Colors.blue,
                           backgroundColor: Colors.black,
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10)))
+                          shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10)))
                       ),
                       child: Container(
                         padding: const EdgeInsets.symmetric(vertical: 12),
