@@ -1,12 +1,11 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 // Colors
 Color lightPink = const Color(0xfef5bbfd);
-Color lightGreen = Color(0xff6ffa60);
-Color lightPurple = Color(0xff606dfa);
-Color lightRed = Color(0xfffa6363);
-Color lightYellow = Color(0xfffadb60);
+Color lightGreen = const Color(0xff6ffa60);
+Color lightPurple = const Color(0xff606dfa);
+Color lightRed = const Color(0xfffa6363);
+Color lightYellow = const Color(0xfffadb60);
 
 
 // Padding
