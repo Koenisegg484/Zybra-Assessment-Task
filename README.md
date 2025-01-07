@@ -61,8 +61,8 @@ lib/
 
 1. **Clone the Repository**
    ```bash
-   git clone <repository-url>
-   cd task_manager
+   git clone https://github.com/Koenisegg484/Zybra-Assessment-Task.git
+   cd Zybra-Assessment-Task
    ```
 
 2. **Install Dependencies**
@@ -89,36 +89,44 @@ lib/
 ## **Screenshots**
 
 ### Screenshot 1
-<img src="Screenshots/SCRST%20(1).jpg" alt="SCRST (1)" width="300"/>
-
-### Screenshot 2
-<img src="Screenshots/SCRST%20(1).png" alt="SCRST (1)" width="300"/>
-
-### Screenshot 3
+**First page asks your name to give a personalised feel**
 <img src="Screenshots/SCRST%20(2).jpg" alt="SCRST (2)" width="300"/>
 
-### Screenshot 4
-<img src="Screenshots/SCRST%20(2).png" alt="SCRST (2)" width="300"/>
+### Screenshot 2
+**The home page**
+<img src="Screenshots/SCRST%20(1).jpg" alt="SCRST (1)" width="300"/>
 
-### Screenshot 5
+### Screenshot 3
+**Create a new Task**
 <img src="Screenshots/SCRST%20(3).jpg" alt="SCRST (3)" width="300"/>
 
-### Screenshot 6
-<img src="Screenshots/SCRST%20(4).jpg" alt="SCRST (4)" width="300"/>
-
-### Screenshot 7
+### Screenshot 4
+**Created a Task**
 <img src="Screenshots/SCRST%20(5).jpg" alt="SCRST (5)" width="300"/>
 
-### Screenshot 8
-<img src="Screenshots/SCRST%20(6).jpg" alt="SCRST (6)" width="300"/>
+### Screenshot 5
+**A completed Task**
+<img src="Screenshots/SCRST%20(4).jpg" alt="SCRST (4)" width="300"/>
 
-### Screenshot 9
+### Screenshot 6
+**Deleting a Task**
 <img src="Screenshots/SCRST%20(7).jpg" alt="SCRST (7)" width="300"/>
 
+### Screenshot 7
+**Task deletion dialog**
+<img src="Screenshots/SCRST%20(6).jpg" alt="SCRST (6)" width="300"/>
+
+### Screenshot 8
+**Tablet view**
+<img src="Screenshots/SCRST%20(1).png" alt="SCRST (1)" width="300"/>
+
+### Screenshot 9
+**Tablet tasks view**
+<img src="Screenshots/SCRST%20(2).png" alt="SCRST (2)" width="300"/>
+
 ### Screenshot 10
+**User Preferences screen**
 <img src="Screenshots/SCRST%20(8).jpg" alt="SCRST (8)" width="300"/>
-
-
 ---
 
 ## **Technologies Used**
